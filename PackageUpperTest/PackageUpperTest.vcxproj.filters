@@ -21,13 +21,55 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="deps\*\src\**\*.cpp">
+    <ClCompile Include="deps\O2Gui-exodus\src\o2\gui\arena.cpp">
       <Filter>deps</Filter>
     </ClCompile>
-    <ClInclude Include="deps\*\include\**\*.h">
+    <ClCompile Include="deps\O2Gui-exodus\src\o2\gui\gui.cpp">
+      <Filter>deps</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\O2Gui-exodus\src\o2\gui\gui_layout.cpp">
+      <Filter>deps</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\O2Gui-exodus\src\o2\gui\gui_raylib.cpp">
+      <Filter>deps</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\O2Gui-exodus\src\o2\gui\minecraft_font.cpp">
+      <Filter>deps</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\O2Jam\src\o2\jam\audio.cpp">
+      <Filter>deps</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\O2Jam\src\o2\jam\sample.cpp">
+      <Filter>deps</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\O2Jam\src\o2\jam\stream.cpp">
+      <Filter>deps</Filter>
+    </ClCompile>
+    <ClInclude Include="deps\O2Gui-exodus\include\o2\gui\arena.h">
       <Filter>deps</Filter>
     </ClInclude>
-    <ClInclude Include="deps\*\src\**\*.h">
+    <ClInclude Include="deps\O2Gui-exodus\include\o2\gui\gui.h">
+      <Filter>deps</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\O2Gui-exodus\include\o2\gui\gui_layout.h">
+      <Filter>deps</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\O2Gui-exodus\include\o2\gui\gui_raylib.h">
+      <Filter>deps</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\O2Gui-exodus\include\o2\gui\minecraft_font.h">
+      <Filter>deps</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\O2Jam\include\o2\jam\audio.h">
+      <Filter>deps</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\O2Jam\include\o2\jam\sample.h">
+      <Filter>deps</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\O2Jam\include\o2\jam\stream.h">
+      <Filter>deps</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\O2Jam\src\o2\jam\internal.h">
       <Filter>deps</Filter>
     </ClInclude>
   </ItemGroup>
