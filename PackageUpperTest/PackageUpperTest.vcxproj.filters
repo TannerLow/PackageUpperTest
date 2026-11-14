@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="deps">
+      <UniqueIdentifier>{2B7E5C1A-6F3D-4E8B-9A21-5D0C7F4E3B61}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -18,5 +21,14 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="deps\*\src\**\*.cpp">
+      <Filter>deps</Filter>
+    </ClCompile>
+    <ClInclude Include="deps\*\include\**\*.h">
+      <Filter>deps</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\*\src\**\*.h">
+      <Filter>deps</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
