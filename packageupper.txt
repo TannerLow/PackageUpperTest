@@ -1,0 +1,3 @@
+# Libraries this project uses. Run PackageUpper's install after changing this file.
+dep https://github.com/TannerLow/O2Jam/tree/ef67c116c85fef3c0d1988a68bf6b7ce274a00b7
+dep https://github.com/TannerLow/O2Gui-exodus/tree/294973cd15bc9d9a19a5a04b0f0b6dd43cf61e7f
