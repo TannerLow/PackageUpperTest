@@ -1,0 +1,4 @@
+# PackageUpper metadata: what this library exports when a project depends on it
+include  O2Gui/include
+src      O2Gui/src
+external externals/raylib_5.5

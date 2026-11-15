@@ -1,0 +1,4 @@
+# PackageUpper metadata: what this library exports when a project depends on it
+include  O2Jam/include
+src      O2Jam/src
+external externals/BASS
