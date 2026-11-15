@@ -22,7 +22,6 @@ Commit the changes to `deps/` along with `packageupper.txt`.
 
 Open `PackageUpperTest.sln` and build `x64`. The project:
 
-- compiles the `.cpp` files under `deps/*/src/`, listed one by one because Visual Studio doesn't support wildcards in `.vcxproj` items. When an install adds or removes library files, update the list in `PackageUpperTest.vcxproj` and `PackageUpperTest.vcxproj.filters`
-- puts each dependency's `include/` and its externals' `include/` on the include path
-- links `bass.lib`, `bass_fx.lib` and `raylib.lib` (static)
+- imports `deps/deps.props`, which PackageUpper writes on every install. It puts each library's include folders on the include path and compiles every library source file, so files the libraries add or remove are picked up without editing the project
+- links `bass.lib`, `bass_fx.lib` and `raylib.lib` (static), set in the project by hand
 - copies `bass.dll`, `bass_fx.dll` and `resources/` next to the executable after each build
