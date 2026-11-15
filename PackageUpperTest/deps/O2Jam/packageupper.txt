@@ -2,3 +2,13 @@
 include  O2Jam/include
 src      O2Jam/src
 external externals/BASS
+
+# What a project that depends on O2Jam links, and the DLLs it needs next to its executable
+link     externals/BASS/lib/x64/bass.lib     x64
+link     externals/BASS/lib/x64/bass_fx.lib  x64
+link     externals/BASS/lib/x86/bass.lib     Win32
+link     externals/BASS/lib/x86/bass_fx.lib  Win32
+copy     externals/BASS/lib/x64/bass.dll     x64
+copy     externals/BASS/lib/x64/bass_fx.dll  x64
+copy     externals/BASS/lib/x86/bass.dll     Win32
+copy     externals/BASS/lib/x86/bass_fx.dll  Win32

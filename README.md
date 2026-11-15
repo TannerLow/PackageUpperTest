@@ -20,9 +20,10 @@ Commit the changes to `deps/` along with `packageupper.txt`.
 
 ## Building
 
-Open `PackageUpperTest.sln` and build `x64`. The project:
+Open `PackageUpperTest.sln` and build `x64`. The project imports `deps/deps.props`, which PackageUpper writes on every install. It sets everything the libraries need:
 
-- compiles the `.cpp` files under `deps/*/src/`, listed one by one because Visual Studio doesn't support wildcards in `.vcxproj` items. When an install adds or removes library files, update the list in `PackageUpperTest.vcxproj` and `PackageUpperTest.vcxproj.filters`
-- puts each dependency's `include/` and its externals' `include/` on the include path
-- links `bass.lib`, `bass_fx.lib` and `raylib.lib` (static)
-- copies `bass.dll`, `bass_fx.dll` and `resources/` next to the executable after each build
+- each library's include folders on the include path, and every library source file compiled
+- `bass.lib`, `bass_fx.lib`, `raylib.lib` and `winmm.lib` linked, as the libraries' `packageupper.txt` files ask
+- `bass.dll` and `bass_fx.dll` copied next to the executable after each build
+
+The project itself only adds a post-build step that copies its own `resources/` next to the executable. Win32 builds don't link, because the raylib that comes with O2Gui is x64 only.

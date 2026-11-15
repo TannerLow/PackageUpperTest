@@ -61,7 +61,9 @@ namespace gui {
 
     static const char* copyString(Context* ctx, const char* text) {
         size_t size = strlen(text) + 1;
-        char* copy = (char*)arena::push(&ctx->frameArena, size);
+        char* copy = (char*)utils::arena::push(&ctx->frameArena, size);
+        assert(copy != NULL); // frame memory ran out
+        if (copy == NULL) return "";
         memcpy(copy, text, size);
         return copy;
     }
@@ -136,7 +138,7 @@ namespace gui {
 
     void init(Context* ctx, void* frameMemory, size_t frameMemorySize, int maxCommands) {
         memset(ctx, 0, sizeof(Context));
-        ctx->frameArena = arena::make(frameMemory, frameMemorySize);
+        ctx->frameArena = utils::arena::make(frameMemory, frameMemorySize);
         ctx->commandCapacity = maxCommands;
         ctx->style = defaultStyle();
     }
@@ -153,8 +155,9 @@ namespace gui {
         ctx->dt = dt;
         ctx->time += dt;
 
-        arena::reset(&ctx->frameArena);
-        ctx->commands = (DrawCommand*)arena::pushArrayAligned(&ctx->frameArena, sizeof(DrawCommand), ctx->commandCapacity, alignof(DrawCommand));
+        utils::arena::reset(&ctx->frameArena);
+        ctx->commands = (DrawCommand*)utils::arena::pushArrayAligned(&ctx->frameArena, sizeof(DrawCommand), ctx->commandCapacity, alignof(DrawCommand));
+        assert(ctx->commands != NULL); // frame memory is too small for maxCommands
         ctx->commandCount = 0;
 
         ctx->idStackCount = 0;
@@ -358,7 +361,9 @@ namespace gui {
         NineSlice nineSlice,
         Color tint
     ) {
-        TextureDraw* texture = (TextureDraw*)arena::pushAligned(&ctx->frameArena, sizeof(TextureDraw), alignof(TextureDraw));
+        TextureDraw* texture = (TextureDraw*)utils::arena::pushAligned(&ctx->frameArena, sizeof(TextureDraw), alignof(TextureDraw));
+        assert(texture != NULL); // frame memory ran out
+        if (texture == NULL) return;
         texture->texture = region.texture;
         texture->source = region.source;
         texture->left = nineSlice.left;
@@ -697,10 +702,14 @@ namespace gui {
         entry.colors = NULL;
         entry.count = 0;
         if (count > 0) {
-            Color* copy = (Color*)arena::pushArrayAligned(&ctx->frameArena, sizeof(Color), (size_t)count, alignof(Color));
-            memcpy(copy, colors, sizeof(Color) * (size_t)count);
-            entry.colors = copy;
-            entry.count = count;
+            Color* copy = (Color*)utils::arena::pushArrayAligned(&ctx->frameArena, sizeof(Color), (size_t)count, alignof(Color));
+            assert(copy != NULL); // frame memory ran out
+            // still push an empty entry, so the caller's pop matches
+            if (copy != NULL) {
+                memcpy(copy, colors, sizeof(Color) * (size_t)count);
+                entry.colors = copy;
+                entry.count = count;
+            }
         }
         ctx->characterColorStack[ctx->characterColorCount] = entry;
         ctx->characterColorCount++;
@@ -720,10 +729,14 @@ namespace gui {
         entry.count = 0;
         entry.changesPerSecond = changesPerSecond;
         if (count > 0) {
-            bool* copy = (bool*)arena::pushArray(&ctx->frameArena, sizeof(bool), (size_t)count);
-            memcpy(copy, obfuscated, sizeof(bool) * (size_t)count);
-            entry.obfuscated = copy;
-            entry.count = count;
+            bool* copy = (bool*)utils::arena::pushArray(&ctx->frameArena, sizeof(bool), (size_t)count);
+            assert(copy != NULL); // frame memory ran out
+            // still push an empty entry, so the caller's pop matches
+            if (copy != NULL) {
+                memcpy(copy, obfuscated, sizeof(bool) * (size_t)count);
+                entry.obfuscated = copy;
+                entry.count = count;
+            }
         }
         ctx->obfuscationStack[ctx->obfuscationCount] = entry;
         ctx->obfuscationCount++;
@@ -874,7 +887,11 @@ namespace gui {
         TextGlyphStyle* shadowGlyphs = NULL;
         Color firstColor = textColor; // what lines take from the text
         if (ctx->characterColorCount > 0 || ctx->obfuscationCount > 0) {
-            glyphs = (TextGlyphStyle*)arena::pushAligned(&ctx->frameArena, sizeof(TextGlyphStyle), alignof(TextGlyphStyle));
+            glyphs = (TextGlyphStyle*)utils::arena::pushAligned(&ctx->frameArena, sizeof(TextGlyphStyle), alignof(TextGlyphStyle));
+            assert(glyphs != NULL); // frame memory ran out
+        }
+        // without room for the glyph style, the text is drawn plain
+        if (glyphs != NULL) {
             memset(glyphs, 0, sizeof(TextGlyphStyle));
 
             if (ctx->characterColorCount > 0) {
@@ -897,14 +914,18 @@ namespace gui {
             // the shadow scrambles the same way; it follows the colors only if
             // it takes its color from the text
             if (shadow.enabled) {
-                shadowGlyphs = (TextGlyphStyle*)arena::pushAligned(&ctx->frameArena, sizeof(TextGlyphStyle), alignof(TextGlyphStyle));
-                *shadowGlyphs = *glyphs;
-                if (shadow.colorFromText) {
-                    shadowGlyphs->darkenColors = true;
-                }
-                else {
-                    shadowGlyphs->colors = NULL;
-                    shadowGlyphs->colorCount = 0;
+                shadowGlyphs = (TextGlyphStyle*)utils::arena::pushAligned(&ctx->frameArena, sizeof(TextGlyphStyle), alignof(TextGlyphStyle));
+                assert(shadowGlyphs != NULL); // frame memory ran out
+                // without room, the shadow is drawn plain
+                if (shadowGlyphs != NULL) {
+                    *shadowGlyphs = *glyphs;
+                    if (shadow.colorFromText) {
+                        shadowGlyphs->darkenColors = true;
+                    }
+                    else {
+                        shadowGlyphs->colors = NULL;
+                        shadowGlyphs->colorCount = 0;
+                    }
                 }
             }
         }
