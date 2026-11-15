@@ -33,7 +33,7 @@ static void formatTime(
 
 int main() {
     o2::jam::setStreamsVolume(0.25f);
-    
+
     if (!o2::jam::init(o2::jam::DEFAULT_DEVICE)) {
         printf("Couldn't start audio: %s\n", o2::jam::getErrorMessage());
         return 1;
@@ -85,7 +85,8 @@ int main() {
 
         if (loadError[0] != '\0') {
             o2::gui::label(&ui, o2::gui::layout::cutTop(&area, 30), "Couldn't load the song, see the console");
-        } else {
+        }
+        else {
             char position[16];
             char length[16];
             formatTime(position, sizeof(position), o2::jam::getPosition(&song));
