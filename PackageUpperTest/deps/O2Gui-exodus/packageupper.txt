@@ -7,3 +7,6 @@ external externals/raylib_5.5
 # so there's no DLL to copy, and it needs winmm.lib from Windows.
 link     externals/raylib_5.5/lib/raylib.lib  x64
 syslib   winmm.lib
+
+# What O2Gui depends on
+dep      https://github.com/TannerLow/O2Tils/tree/7e9d42cfa3a2a3f348f3955ae2fe1a035775ff5c

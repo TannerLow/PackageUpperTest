@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <raylib.h>
-#include <o2/gui/arena.h>
+#include <o2/utils/arena.h>
 
 // Immediate-mode UI core.
 //
@@ -382,7 +382,7 @@ namespace gui {
     };
 
     struct Context {
-        arena::Arena frameArena; // reset every beginFrame
+        utils::arena::Arena frameArena; // reset every beginFrame
         DrawCommand* commands;
         int commandCount;
         int commandCapacity;

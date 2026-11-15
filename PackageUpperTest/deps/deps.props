@@ -3,7 +3,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)O2Gui-exodus\include;$(MSBuildThisFileDirectory)O2Gui-exodus\externals\raylib_5.5\include;$(MSBuildThisFileDirectory)O2Jam\include;$(MSBuildThisFileDirectory)O2Jam\externals\BASS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)O2Gui-exodus\include;$(MSBuildThisFileDirectory)O2Gui-exodus\externals\raylib_5.5\include;$(MSBuildThisFileDirectory)O2Jam\include;$(MSBuildThisFileDirectory)O2Jam\externals\BASS\include;$(MSBuildThisFileDirectory)O2Tils\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>
@@ -22,9 +22,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)O2Gui-exodus\src\o2\gui\arena.cpp">
-      <ObjectFileName>$(IntDir)deps\O2Gui-exodus\src\o2\gui\</ObjectFileName>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)O2Gui-exodus\src\o2\gui\gui.cpp">
       <ObjectFileName>$(IntDir)deps\O2Gui-exodus\src\o2\gui\</ObjectFileName>
     </ClCompile>
@@ -46,7 +43,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)O2Jam\src\o2\jam\stream.cpp">
       <ObjectFileName>$(IntDir)deps\O2Jam\src\o2\jam\</ObjectFileName>
     </ClCompile>
-    <ClInclude Include="$(MSBuildThisFileDirectory)O2Gui-exodus\include\o2\gui\arena.h" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)O2Tils\src\o2\utils\arena.cpp">
+      <ObjectFileName>$(IntDir)deps\O2Tils\src\o2\utils\</ObjectFileName>
+    </ClCompile>
     <ClInclude Include="$(MSBuildThisFileDirectory)O2Gui-exodus\include\o2\gui\gui.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)O2Gui-exodus\include\o2\gui\gui_layout.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)O2Gui-exodus\include\o2\gui\gui_raylib.h" />
@@ -55,6 +54,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)O2Jam\include\o2\jam\sample.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)O2Jam\include\o2\jam\stream.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)O2Jam\src\o2\jam\internal.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)O2Tils\include\o2\utils\arena.h" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='Win32'">
     <PackageUpperCopy Include="$(MSBuildThisFileDirectory)O2Jam\externals\BASS\lib\x86\bass.dll" />

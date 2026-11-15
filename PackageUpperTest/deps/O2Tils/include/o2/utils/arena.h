@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 namespace o2 {
+namespace utils {
 namespace arena {
 
     // Linear allocator over a caller-provided block of memory.
@@ -16,10 +17,17 @@ namespace arena {
     Arena make(void* memory, size_t size);
     void reset(Arena* arena);
 
+    // Each push returns NULL, and leaves the arena unchanged, when the arena doesn't have room.
     void* push(Arena* arena, size_t size);
     void* pushArray(Arena* arena, size_t sizePerElement, size_t count);
     void* pushAligned(Arena* arena, size_t size, size_t alignment);
-    void* pushArrayAligned(Arena* arena, size_t sizePerElement, size_t count, size_t alignment);
+    void* pushArrayAligned(
+        Arena* arena,
+        size_t sizePerElement,
+        size_t count,
+        size_t alignment
+    );
 
+}
 }
 }

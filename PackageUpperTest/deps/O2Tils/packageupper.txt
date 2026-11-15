@@ -1,0 +1,4 @@
+# PackageUpper metadata: what this library exports when a project depends on it.
+# O2Tils depends on nothing and links nothing beyond the C and C++ runtime.
+include  O2Tils/include
+src      O2Tils/src
