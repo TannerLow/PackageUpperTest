@@ -32,6 +32,8 @@ static void formatTime(
 }
 
 int main() {
+    o2::jam::setStreamsVolume(0.25f);
+    
     if (!o2::jam::init(o2::jam::DEFAULT_DEVICE)) {
         printf("Couldn't start audio: %s\n", o2::jam::getErrorMessage());
         return 1;
