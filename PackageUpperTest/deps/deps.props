@@ -6,6 +6,21 @@
       <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)O2Gui-exodus\include;$(MSBuildThisFileDirectory)O2Gui-exodus\externals\raylib_5.5\include;$(MSBuildThisFileDirectory)O2Jam\include;$(MSBuildThisFileDirectory)O2Jam\externals\BASS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Platform)'=='Win32'">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)O2Jam\externals\BASS\lib\x86\bass.lib;$(MSBuildThisFileDirectory)O2Jam\externals\BASS\lib\x86\bass_fx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Platform)'=='x64'">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)O2Gui-exodus\externals\raylib_5.5\lib\raylib.lib;$(MSBuildThisFileDirectory)O2Jam\externals\BASS\lib\x64\bass.lib;$(MSBuildThisFileDirectory)O2Jam\externals\BASS\lib\x64\bass_fx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)O2Gui-exodus\src\o2\gui\arena.cpp">
       <ObjectFileName>$(IntDir)deps\O2Gui-exodus\src\o2\gui\</ObjectFileName>
@@ -41,4 +56,16 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)O2Jam\include\o2\jam\stream.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)O2Jam\src\o2\jam\internal.h" />
   </ItemGroup>
+  <ItemGroup Condition="'$(Platform)'=='Win32'">
+    <PackageUpperCopy Include="$(MSBuildThisFileDirectory)O2Jam\externals\BASS\lib\x86\bass.dll" />
+    <PackageUpperCopy Include="$(MSBuildThisFileDirectory)O2Jam\externals\BASS\lib\x86\bass_fx.dll" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Platform)'=='x64'">
+    <PackageUpperCopy Include="$(MSBuildThisFileDirectory)O2Jam\externals\BASS\lib\x64\bass.dll" />
+    <PackageUpperCopy Include="$(MSBuildThisFileDirectory)O2Jam\externals\BASS\lib\x64\bass_fx.dll" />
+  </ItemGroup>
+  <!-- Copies the dependencies' DLLs next to the executable after each build -->
+  <Target Name="PackageUpperCopy" AfterTargets="Build">
+    <Copy SourceFiles="@(PackageUpperCopy)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
+  </Target>
 </Project>

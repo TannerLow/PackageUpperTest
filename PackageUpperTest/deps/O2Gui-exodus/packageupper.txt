@@ -2,3 +2,8 @@
 include  O2Gui/include
 src      O2Gui/src
 external externals/raylib_5.5
+
+# What a project that depends on O2Gui links. raylib.lib is a static x64 build,
+# so there's no DLL to copy, and it needs winmm.lib from Windows.
+link     externals/raylib_5.5/lib/raylib.lib  x64
+syslib   winmm.lib
